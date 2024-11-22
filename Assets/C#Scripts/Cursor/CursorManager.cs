@@ -1,15 +1,13 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 
 public class CursorManager : MonoBehaviour
 {
-    //
-    //
-    //
+    //===============================
+    //This script manages the cursor.
+    //===============================
 
     //References
     #region References
@@ -17,7 +15,7 @@ public class CursorManager : MonoBehaviour
     [Header("References")]
 
     [Header("Scripts")]
-    public SceneLoaderAndButtons SceneLoaderAndButtons;
+    public MainMenuManager SceneLoaderAndButtons;
 
     [Header("Textures")]
     public Texture2D cursor;        
@@ -37,8 +35,8 @@ public class CursorManager : MonoBehaviour
 
     #endregion
 
-    //Start Method
-    #region Start()
+    //Awake Method
+    #region Awake()
 
     private void Awake()
     {
@@ -47,6 +45,9 @@ public class CursorManager : MonoBehaviour
     }
 
     #endregion
+
+    //Start Method
+    #region Start()
 
     private void Start()
     {
@@ -59,6 +60,11 @@ public class CursorManager : MonoBehaviour
         }
         
     }
+
+    #endregion
+
+    //OnEnable Method
+    #region OnEnable
 
     private void OnEnable()
     {
@@ -78,6 +84,11 @@ public class CursorManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    //OnDisable Method
+    #region OnDisable()
+
     private void OnDisable()
     {
         if (playButton != null)
@@ -96,6 +107,11 @@ public class CursorManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    //OnButtonClicked Method
+    #region OnButtonClicked()
+
     private void OnButtonClicked()
     {
         clickSound.Play();
@@ -103,24 +119,46 @@ public class CursorManager : MonoBehaviour
         Invoke(nameof(ResetCursor), 1f);
     }
 
+    #endregion
+
+    //ResetCursor Method
+    #region ResetCursor()
+
     private void ResetCursor()
     {
         ChangeCursor(cursor);
     }
+
+    #endregion
+
+    //ChangeCursor Method
+    #region ChangeCursor()
 
     private void ChangeCursor(Texture2D cursorType)
     {
         Cursor.SetCursor(cursorType, Vector2.zero, CursorMode.ForceSoftware);
     }
 
+    #endregion
+
+    //OnButtonCursorEnter Method
+    #region OnButtonCursorEnter
+
     public void OnButtonCursorEnter()
     {
         hoverSound.Play();
     }
 
+    #endregion
+
+    //OnButtonCursorExit Method
+    #region OnButtonCursorExit()
     public void OnButtonCursorExit()
     {
         hoverSound.Stop();
     }
 
+    #endregion
+
+    //===============================
 }

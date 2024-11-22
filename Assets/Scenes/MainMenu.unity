@@ -1323,10 +1323,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuButtons: {fileID: 677278439}
+  uINav: {fileID: 677278443}
   startingScene: 0
   mainMenu: 0
   anim: {fileID: 679397607}
-  mainMenuFirstButton: {fileID: 558068707}
   startingSceneCanvas: {fileID: 679397602}
   mainMenuCanvas: {fileID: 693942862}
 --- !u!114 &677278442
@@ -1357,6 +1357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 677278442}
   scene: {fileID: 677278441}
+  firstButton: {fileID: 558068707}
 --- !u!1 &679397602
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,13 +9,26 @@ public class MainMenuButtons : MonoBehaviour
     //References
     #region References
 
-    public Animator anim;
+    [Header("References")]
+
+    [Header("Scripts")]
     public Fade fade;
-    public GameObject exitCanvas;
+
+    [Header("Bools")]
     public bool playButton = false;
     public bool settingsButton = false;
 
+    [Header("Animators")]
+    public Animator anim;
+
+    [Header("GameObjects")]
+    public GameObject exitCanvas;
+
+
     #endregion
+
+    //PlayButton Method
+    #region PlayButton()
 
     public void PlayButton()
     {
@@ -25,6 +38,11 @@ public class MainMenuButtons : MonoBehaviour
         
     }
 
+    #endregion
+
+    //SettingsButton Method
+    #region SettingsButton()
+
     public void SettingsButton()
     {
         anim.SetBool("Fade In", true);
@@ -32,6 +50,10 @@ public class MainMenuButtons : MonoBehaviour
         settingsButton = true;
     }
 
+    #endregion
+
+    //Quit Method
+    #region Quit()
     public void Quit()
     {
         Debug.Log("Quit Game");
@@ -39,5 +61,7 @@ public class MainMenuButtons : MonoBehaviour
         StartCoroutine(fade.Wait());
     }
 
-    
+    #endregion
+
+    //==========================================================
 }

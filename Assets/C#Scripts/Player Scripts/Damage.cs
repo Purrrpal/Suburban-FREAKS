@@ -2,12 +2,30 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
-    public int minDamage = 10;       
-    public int maxDamage = 20;       
+    //====================================================================================
+    //This script manages and calculates the damage that will inflict on the other player. 
+    //====================================================================================
+
+    //References
+    #region References
+
+    [Header("References")]
+
+    [Header("Scripts")]
+    public Player2 playerTwo;
+
+    [Header("Floats")]
     public float critChance = 0.2f;  // Critical hit chance (e.g., 0.2 = 20% chance)
     public float critMultiplier = 1.5f; // Critical hit multiplier (e.g., 1.5 = 150% damage)
 
-    public Player2 playerTwo;
+    [Header("Ints")]
+    public int minDamage = 10;       
+    public int maxDamage = 20;
+
+    #endregion
+
+    //CalculateRandomDamageWithCritical Method
+    #region CalculateRandomDamageWithCritical()
 
     // Function to calculate random damage with a chance of critical hit
     public int CalculateRandomDamageWithCritical()
@@ -31,8 +49,9 @@ public class Damage : MonoBehaviour
 
         return damage;
 
-
-
     }
 
+    #endregion
+
+    //====================================================================================
 }

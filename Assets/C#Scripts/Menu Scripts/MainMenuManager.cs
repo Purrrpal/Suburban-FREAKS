@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SceneLoaderAndButtons : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
-    //
-    //
-    //
+    //==================================
+    //This script manages the main menu.
+    //==================================
 
     //References
     #region References
@@ -15,27 +15,25 @@ public class SceneLoaderAndButtons : MonoBehaviour
     [Header("References")]
 
     [Header("Scripts")]
-
     public MainMenuButtons mainMenuButtons;
-
+    public UINavigationController uINav;
 
     [Header("Bools")]
     private bool canPressKey = false;  // New variable to control key press after delay
     public bool startingScene;
     public bool mainMenu;
 
-
     [Header("Animator")]  
-    
     public Animator anim;
 
     [Header("GameObjects")]
-
-    public GameObject mainMenuFirstButton;
     public GameObject startingSceneCanvas;
     public GameObject mainMenuCanvas;
 
-    #endregion 
+    #endregion
+
+    //Start Method
+    #region Start()
 
     void Start()
     {
@@ -44,6 +42,11 @@ public class SceneLoaderAndButtons : MonoBehaviour
         canPressKey = false;
         StartCoroutine(EnableKeyPressAfterDelay(1));
     }
+
+    #endregion
+
+    //Update Method
+    #region Update()
 
     void Update()
     {
@@ -73,7 +76,10 @@ public class SceneLoaderAndButtons : MonoBehaviour
         }  
     }
 
+    #endregion
 
+    //EnableKeyPressAfterDelay Coroutine
+    #region EnableKeyPressAfterDelay()
     // Coroutine to delay key press for 10 seconds
     IEnumerator EnableKeyPressAfterDelay(float delay)
     {
@@ -81,8 +87,13 @@ public class SceneLoaderAndButtons : MonoBehaviour
         canPressKey = true;
     }
 
-    //Coroutine for waiting in the mai menu scene to press any key 
-    IEnumerator Wait() //This
+    #endregion
+
+    //Wait Coroutine
+    #region Wait()
+
+    //Coroutine for waiting in the main menu scene to press any key 
+    IEnumerator Wait()
     {
         yield return new WaitForSeconds(300);
         
@@ -96,6 +107,11 @@ public class SceneLoaderAndButtons : MonoBehaviour
 
     }
 
+    #endregion
+
+    //WaitStart Method
+    #region WaitStart()
+
     IEnumerator WaitStart()
     {
         yield return new WaitForSeconds(0.1f);
@@ -106,10 +122,13 @@ public class SceneLoaderAndButtons : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         // Set the target button as selected
-        EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
+        EventSystem.current.SetSelectedGameObject(uINav.firstButton);
 
         // Force update to ensure the selection is acknowledged
-        mainMenuFirstButton.GetComponent<Button>().OnSelect(null);
+        uINav.firstButton.GetComponent<Button>().OnSelect(null);
     }
 
+    #endregion
+
+    //==================================
 }

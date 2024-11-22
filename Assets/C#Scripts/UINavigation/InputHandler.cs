@@ -1,18 +1,41 @@
+using System.Collections;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public enum InputMode { Mouse, Controller, Keyboard }
+    //==========================================================
+    //This script hnadles the control input from the 1st player.
+    //==========================================================
+
+    //References
+    #region References
+
+    [Header("References")]
+
+    [Header("Scripts")]
+    public MainMenuManager sceneLoader;
+
+    [Header("References")]
     public InputMode currentInputMode;
-    public SceneLoaderAndButtons sceneLoader;
+    public enum InputMode { Mouse, Controller, Keyboard }
 
     private Vector3 lastMousePosition;
+
+    #endregion
+
+    //Start Method
+    #region Start()
 
     void Start()
     {
         lastMousePosition = Input.mousePosition;
         currentInputMode = InputMode.Controller;
     }
+
+    #endregion
+
+    //Update Method
+    #region Update()
 
     void Update()
     {
@@ -27,14 +50,21 @@ public class InputHandler : MonoBehaviour
         else
         {
             Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            StartCoroutine(MouseEnableLockState());
         }
     }
 
+    #endregion
+
+    //ProcessInputMode Method
+    #region ProcessInputMode()
+
     public InputMode ProcessInputMode()
     {
-        if (!sceneLoader.mainMenu)
+        if (sceneLoader == null||!sceneLoader.mainMenu)
+        {
             return currentInputMode;
+        }
 
         // Detect mouse movement
         if (Input.mousePosition != lastMousePosition)
@@ -75,4 +105,18 @@ public class InputHandler : MonoBehaviour
         // If no input detected, return the last known mode
         return currentInputMode;
     }
+
+    #endregion
+
+    //MouseEnableLockState Coroutine
+    #region MouseEnableLockState()
+    private IEnumerator MouseEnableLockState()
+    {
+        yield return new WaitForEndOfFrame();
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    #endregion
+
+    //==========================================================
 }

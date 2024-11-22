@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 
 public class CharacterSelectionButton : MonoBehaviour
 {
@@ -14,6 +12,8 @@ public class CharacterSelectionButton : MonoBehaviour
     #region Variables
 
     [Header("References")]
+
+    [Header("Images")]
     public Image buttonImage;  // Reference to the Image component on the button
 
     [Header("Sprites")]

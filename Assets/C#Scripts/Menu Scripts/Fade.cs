@@ -11,9 +11,13 @@ public class Fade : MonoBehaviour
     //References
     #region References
 
-    public Animator animFade;
-    
+    [Header("References")]
+
+    [Header("Scripts")]
     public MainMenuButtons mainMenuButtons;
+
+    [Header("Animator")]
+    public Animator animFade;
 
     #endregion
 
