@@ -16,7 +16,7 @@ public class RandomCharacterSelectionButton : MonoBehaviour
     [Header("Sprites")]
     public Sprite[] originalSprites;
     public Sprite[] hoverSprites;
-    public Sprite[] finalselectionImages;
+    public Sprite[] finalSelectionSprites;
 
     [Header("Floats")]
     public float hoverTime = 2f;
@@ -24,6 +24,10 @@ public class RandomCharacterSelectionButton : MonoBehaviour
 
     [Header("Buttons")]
     public Button[] characterButtons;
+
+    [Header("AudioSources")]
+    public AudioSource selectSound;
+    public AudioSource hoverSound;
 
     private bool isSelecting = false;
 
@@ -75,8 +79,7 @@ public class RandomCharacterSelectionButton : MonoBehaviour
             if(randomCharacter != previousCharacter)
             {
                 Debug.Log(characterButtons[randomCharacter].name);
-                //TODO: Add sound!
-                //TODO: Change Image of the button!
+                hoverSound.Play();
                 HighlightButton(characterButtons[randomCharacter], randomCharacter);
                 previousCharacter = randomCharacter;
             }
@@ -97,17 +100,27 @@ public class RandomCharacterSelectionButton : MonoBehaviour
 
     #endregion
 
+    //HighlightButton Method
+    #region HighlightButton()
+
     private void HighlightButton(Button button, int index)
     {
         // Change the button's image to the hover sprite.
         button.GetComponent<Image>().sprite = hoverSprites[index];
     }
 
+    #endregion
+
+    //ResetButtonAppearance Method
+    #region ResetButtonAppearance()
+
     private void ResetButtonAppearance(Button button, int index)
     {
         // Reset the button's image to its original sprite.
         button.GetComponent<Image>().sprite = originalSprites[index];
     }
+
+    #endregion
 
     //===========================================================================
 }

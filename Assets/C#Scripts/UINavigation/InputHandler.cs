@@ -12,9 +12,6 @@ public class InputHandler : MonoBehaviour
 
     [Header("References")]
 
-    [Header("Scripts")]
-    public MainMenuManager sceneLoader;
-
     [Header("References")]
     public InputMode currentInputMode;
     public enum InputMode { Mouse, Controller, Keyboard }
@@ -29,7 +26,7 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         lastMousePosition = Input.mousePosition;
-        currentInputMode = InputMode.Controller;
+        currentInputMode = InputMode.Mouse;
     }
 
     #endregion
@@ -41,7 +38,7 @@ public class InputHandler : MonoBehaviour
     {
         currentInputMode = ProcessInputMode();
 
-        // Toggle cursor visibility based on the current input mode
+        // toggle cursor visibility based on the current input mode
         if (currentInputMode == InputMode.Mouse)
         {
             Cursor.visible = true;
@@ -49,6 +46,7 @@ public class InputHandler : MonoBehaviour
         }
         else
         {
+
             Cursor.visible = false;
             StartCoroutine(MouseEnableLockState());
         }
@@ -61,34 +59,13 @@ public class InputHandler : MonoBehaviour
 
     public InputMode ProcessInputMode()
     {
-        if (sceneLoader == null||!sceneLoader.mainMenu)
-        {
-            return currentInputMode;
-        }
+        const float joystickDeadzone = 0.1f;
 
         // Detect mouse movement
         if (Input.mousePosition != lastMousePosition)
         {
             lastMousePosition = Input.mousePosition;
             return InputMode.Mouse;
-        }
-
-        // Detect controller input
-        if (Input.GetJoystickNames().Length > 0)
-        {
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-            {
-                return InputMode.Controller;
-            }
-
-            // Check for any controller button press
-            for (int i = 0; i <= 19; i++)
-            {
-                if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), $"JoystickButton{i}")))
-                {
-                    return InputMode.Controller;
-                }
-            }
         }
 
         // Detect keyboard input
@@ -99,10 +76,30 @@ public class InputHandler : MonoBehaviour
                 Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.Return))
             {
                 return InputMode.Keyboard;
+
             }
+            else if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                return InputMode.Mouse;
+            }
+            else if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.JoystickButton10) || Input.GetKeyDown(KeyCode.JoystickButton11)
+                || Input.GetKeyDown(KeyCode.JoystickButton12) || Input.GetKeyDown(KeyCode.JoystickButton13) || Input.GetKeyDown(KeyCode.JoystickButton13) || Input.GetKeyDown(KeyCode.JoystickButton14)
+                || Input.GetKeyDown(KeyCode.JoystickButton15) || Input.GetKeyDown(KeyCode.JoystickButton16) || Input.GetKeyDown(KeyCode.JoystickButton17) || Input.GetKeyDown(KeyCode.JoystickButton18)
+                || Input.GetKeyDown(KeyCode.JoystickButton19) || Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.JoystickButton4)
+                || Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.JoystickButton6) || Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.JoystickButton8)
+                || Input.GetKeyDown(KeyCode.JoystickButton9))
+            {
+                return InputMode.Controller;
+            }
+
+        }
+        
+        if (Input.GetAxis("Joystick Horizontal") > joystickDeadzone || Mathf.Abs(Input.GetAxis("Joystick Vertical")) > joystickDeadzone)
+        {
+            return InputMode.Controller;
         }
 
-        // If no input detected, return the last known mode
+        // Return the last known input mode if no new input detected
         return currentInputMode;
     }
 

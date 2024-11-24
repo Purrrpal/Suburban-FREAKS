@@ -41,7 +41,7 @@ public class CursorManager : MonoBehaviour
     private void Awake()
     {
         ChangeCursor(cursor);
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.lockState = CursorLockMode.None;
     }
 
     #endregion
@@ -57,6 +57,10 @@ public class CursorManager : MonoBehaviour
         if(sceneName == "MainMenu" && SceneLoaderAndButtons.mainMenu == false)
         {
             Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.visible = true;
         }
         
     }
